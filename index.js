@@ -1,13 +1,24 @@
-const express = require('express');
-const { resolve } = require('path');
+const express = require("express");
+const { getDataFromParam } = require("./utils");
+const { getHotels } = require("./hotelData");
+const { sortData } = require("./helperFunctions");
 
 const app = express();
-const port = 3010;
+const port = 3000;
 
-app.use(express.static('static'));
-
-app.get('/', (req, res) => {
-  res.sendFile(resolve(__dirname, 'pages/index.html'));
+app.get("/hotels/sort/pricing", (req, res) => {
+  const pricing = getDataFromParam(req, "pricing");
+  const data = getHotels();
+  switch (pricing) {
+    case "low-to-high":
+      res.json(data.sort(sortData("price", "a")));
+      break;
+    case "high-to-low":
+      res.json(data.sort(sortData("price", "d")));
+      break;
+    default:
+      res.json(data);
+  }
 });
 
 app.listen(port, () => {

@@ -200,6 +200,7 @@ let hotels = [
     country: "Australia",
   },
 ];
+
 const getHotels = () => {
   return hotels.slice();
 }

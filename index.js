@@ -2,8 +2,10 @@ const express = require("express");
 const { getDataFromParam } = require("./utils");
 const { getHotels } = require("./hotelData");
 const { sortData, filterBy } = require("./helperFunctions");
+const cors = require('cors')
 
 const app = express();
+app.use(cors())
 const port = 3000;
 
 app.get("/hotels", (req, res) => {
